@@ -1,11 +1,8 @@
 //business logic
-function Place(local, time) {
-  this.location = local;
-  this.timeOfYear = time;
-  this.landmarks = [];
-
-  // this.image = $(this); trying to add an image(dom element) with a method
-}
+// function ToDoList(task) {
+//   this.task = [];
+//
+// }
 
 //  // here as reference for prototype
 // Contact.prototype.fullName = function() {
@@ -16,32 +13,36 @@ function Place(local, time) {
 // user interface logic
 $(document).ready(function() {
 
+  //make array with inputs
+  var ToDoList = {
+    items: [],
+  };
 
-  var America = new Place("Kansas", "Autumn");
-  var England = new Place("London", "Summer");
-  var Moon = new Place("Tranquility", "Winter");
+  $("form").submit(function(e){
+    e.preventDefault()
+    ToDoList.items.push( $("#task").val() )
 
-  for (var prop in America) {
-    console.log("obj." + prop + " = " + America[prop]);
-  }
 
-  // Output:
-  // "obj.a = 1"
-  // "obj.b = 2"
-  // "obj.c = 3"
 
-  $("input").click(function() {
-    console.log(this)
+  //put input in dom
+
+    $(".output").append("<p>"+ $("#task").val() + "</p>")
+    console.log( "tasks: " + ToDoList.items )
+  })
+
+
+
+
+  //remove elemetns from dom and array
+  $(".output").on("click", "p",function() {
+
     var that = this;
-
-    if ($(that).val() === "america"){
-      console.log(America)
-    } else if ($(that).val() === "england") {
-      console.log(England)
-    } else if ($(that).val() === "moon") {
-      console.log(Moon)
-    }
+    $(that).remove();
 
 
+    // remove item from array
+    ToDoList.items.splice(ToDoList.items.indexOf( $(this).text() ), 1)
+
+      console.log( "tasks: " +  ToDoList.items )
   });
 });
